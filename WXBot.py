@@ -1,17 +1,14 @@
 from wxpy import *
-from apscheduler.schedulers.blocking import BlockingScheduler 
 class WXBot:
     # wechat bot
     bot = None
     # friend or group
     chat_object = None
 
-    def __init__(self):
+    def __init__(self, friend_name):
         # Login with cache
         self.bot = Bot(cache_path=True)
-        return None
-    
-    def search_friend(self, friend_name: str) -> str:
+
         # Search friend first
         friend_list = self.bot.friends().search(friend_name)
         if len(friend_list) > 0:
@@ -31,8 +28,13 @@ class WXBot:
         if self.chat_object == None:
             raise 'No send object'
         self.chat_object.send('聊天机器人小杨: ' + message)
+    
+    def log(self, log_message: str) -> None:
+        file = open(self.chat_object.name + ".txt", "w+")
+        file.write(log_message + '\n')
+        file.close()
+
 
 if __name__ == '__main__':
-    wxbot = WXBot()
-    wxbot.search_friend('家人')
+    wxbot = WXBot('女神')
     wxbot.send_message('你好')
