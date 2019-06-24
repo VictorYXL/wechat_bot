@@ -1,27 +1,18 @@
 from apscheduler.schedulers.blocking import BlockingScheduler 
-from WXBot import WXBot
 from component import Component
 
-def agent_common(object: str) -> None:
-    wxbot = WXBot('yxl')
-    sched = BlockingScheduler()
-    component = Component(wxbot)
+class Agent_Base:
+    component = None
+    sched = None
 
-    sched.add_job(component.send_weather, args = ['北京', 'today'], trigger = 'cron', hour='7')
-    sched.add_job(component.send_weather, args = ['北京', 'tomorrow'], trigger = 'cron', hour='22')
-    sched.start()
-    return None
-
-def agent_my_wife():
-    return None
-
-def agent_family():
-    return None
-
-def agent_myself():
-    return None
-
-if __name__ == '__main__':
-     agent_common('女神')
-    # agent_common('家人')
-    # agent_common('yxl')
+    def __init__(self, friend_name: str, friend_city: str) -> None:
+        self.component = Component(friend_name, friend_city)
+        self.sched = BlockingScheduler()
+    
+    def add_send_weather_job(self) -> None:
+        self.sched.add_job(self.component.send_weather, args = ['today'], trigger = 'cron', hour = '7')
+        self.sched.add_job(self.component.send_weather, args = ['tomorrow'], trigger = 'cron', hour = '22')
+    
+    def start(self) -> None:
+        # TODO: use multi-thread
+        self.sched.start()

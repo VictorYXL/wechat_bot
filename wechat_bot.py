@@ -1,5 +1,5 @@
 from wxpy import *
-class WXBot:
+class Wechat_Bot:
     # wechat bot
     bot = None
     # friend or group
@@ -13,14 +13,19 @@ class WXBot:
         friend_list = self.bot.friends().search(friend_name)
         if len(friend_list) > 0:
             self.chat_object = friend_list[0]
-        else:
-            #Search group when no friend found
-            group_list = self.bot.groups().search(friend_name)
-            if len(group_list) > 0:
-                self.chat_object = group_list[0]
-            else:        
-                # No friend or group found
-                raise 'No group ' + friend_name + ' found.'
+            return 
+        # Search group when no friend found
+        group_list = self.bot.groups().search(friend_name)
+        if len(group_list) > 0:
+            self.chat_object = group_list[0]
+            return
+        # File helper
+        if friend_name == 'file_helper':
+            self.chat_object = self.bot.file_helper
+            return None
+            
+        # No friend or group found
+            raise 'No group ' + friend_name + ' found.'
     
     def send_message(self, message: str) -> None:
         if self.chat_object == None:
@@ -34,5 +39,5 @@ class WXBot:
 
 
 if __name__ == '__main__':
-    wxbot = WXBot('女神')
+    wxbot = Wechat_Bot('file_helper')
     wxbot.send_message('你好')
