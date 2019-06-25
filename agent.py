@@ -13,6 +13,9 @@ class Agent_Base:
         self.sched.add_job(self.component.send_weather, args = ['today'], trigger = 'cron', hour = '7')
         self.sched.add_job(self.component.send_weather, args = ['tomorrow'], trigger = 'cron', hour = '22')
     
+    def add_send_joke_job(self) -> None:
+        self.sched.add_job(self.component.send_joke, args = [''], trigger = 'cron', hour = '10, 12, 14, 16, 18')
+    
     def start(self) -> None:
         # TODO: use multi-thread
         self.sched.start()

@@ -21,5 +21,10 @@ class Component:
                 self.wechat_bot.send_message('为您播报明天天气')
             self.wechat_bot.send_message(weather_str)
         return None
+    
+    def send_joke(self, date: str) -> None:
+        joke_str = self.infomation_getter.get_joke()
+        self.wechat_bot.send_message('给您说个笑话吧')
+        self.wechat_bot.send_message(joke_str)
 
     
