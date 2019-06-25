@@ -1,7 +1,7 @@
 from apscheduler.schedulers.blocking import BlockingScheduler 
 from component import Component
 
-class Agent_Base:
+class Agent:
     component = None
     sched = None
 

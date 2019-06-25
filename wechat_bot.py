@@ -30,7 +30,7 @@ class Wechat_Bot:
     def send_message(self, message: str) -> None:
         if self.chat_object == None:
             raise 'No send object'
-        self.chat_object.send('聊天机器人小杨: ' + message)
+        self.chat_object.send('机器人小亮: ' + message)
     
     def log(self, log_message: str) -> None:
         file = open(self.chat_object.name + ".txt", "w+")
