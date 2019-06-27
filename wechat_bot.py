@@ -3,41 +3,43 @@ class Wechat_Bot:
     # wechat bot
     bot = None
     # friend or group
-    chat_object = None
+    friend = None
+    friend_name = None
 
     def __init__(self, friend_name):
         # Login with cache
         self.bot = Bot(cache_path=True)
+        self.friend_name = friend_name
 
         # Search friend first
         friend_list = self.bot.friends().search(friend_name)
         if len(friend_list) > 0:
-            self.chat_object = friend_list[0]
-            return 
+            self.friend = friend_list[0]
+            return None
         # Search group when no friend found
         group_list = self.bot.groups().search(friend_name)
         if len(group_list) > 0:
-            self.chat_object = group_list[0]
-            return
+            self.friend = group_list[0]
+            return None
         # File helper
         if friend_name == 'file_helper':
-            self.chat_object = self.bot.file_helper
+            self.friend = self.bot.file_helper
             return None
             
         # No friend or group found
-            raise 'No group ' + friend_name + ' found.'
+        raise 'No group ' + friend_name + ' found.'
     
     def send_message(self, message: str) -> None:
-        if self.chat_object == None:
+        if self.friend == None:
             raise 'No send object'
-        self.chat_object.send('机器人小亮: ' + message)
+        self.friend.send('机器人小亮: ' + message)
     
     def log(self, log_message: str) -> None:
-        file = open(self.chat_object.name + ".txt", "w+")
+        file = open(self.friend.name + ".txt", "w+")
         file.write(log_message + '\n')
         file.close()
 
 
 if __name__ == '__main__':
-    wxbot = Wechat_Bot('file_helper')
+    wxbot = Wechat_Bot('file_helper', '北京')
     wxbot.send_message('你好')
