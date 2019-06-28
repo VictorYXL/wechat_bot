@@ -1,4 +1,5 @@
 from wxpy import *
+from log import *
 class Wechat_Bot:
     # wechat bot
     bot = None
@@ -33,13 +34,9 @@ class Wechat_Bot:
         if self.friend == None:
             raise 'No send object'
         self.friend.send('机器人小亮: ' + message)
+        send_message_log(self.friend_name, message)
     
-    def log(self, log_message: str) -> None:
-        file = open(self.friend.name + ".txt", "w+")
-        file.write(log_message + '\n')
-        file.close()
-
 
 if __name__ == '__main__':
-    wxbot = Wechat_Bot('file_helper', '北京')
+    wxbot = Wechat_Bot('file_helper')
     wxbot.send_message('你好')

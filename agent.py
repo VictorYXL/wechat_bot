@@ -12,8 +12,7 @@ class Agent:
         self.friend_city = friend_city
     
     def send_weather(self, date: str) -> None:
-        weather_str = self.info_getter.get_weather(date = date, city = self.friend_city)
-        good_morning_night = ''
+        weather_str = self.info_getter.get_weather(city = self.friend_city, date = date)
         if date == 'today':
             '早安, ' + self.friend_bot.friend_name + '。 '
         else:
@@ -31,5 +30,5 @@ class Agent:
 if __name__ == "__main__":
     info_getter = Information_Getter()
     agent = Agent(friend_name = 'file_helper', friend_city = '北京', info_getter = info_getter)
-    agent.send_joke()
+    agent.send_weather(date = 'today')
     

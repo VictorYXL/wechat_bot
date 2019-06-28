@@ -1,21 +1,32 @@
 from information_grab import *
 class Information_Getter:
-    weather = None
+        #self.waether = 
+        # {
+        #   'city_1': 
+        #   {
+        #       'today': weather_str_today, 
+        #       'tomorrow': weather_str_tomorrow,
+        #       'tip': weather_tip
+        #    },
+        #   'city_2': 
+        #   {
+        #       'today': weather_str_today, 
+        #       'tomorrow': weather_str_tomorrow,
+        #       'tip': weather_tip
+        #    },
+        # }
+    weather = {}
     joke = ''
-    def __init__(self):
-        self.weather = {'today': {}, 'tomorrow': {}}
-        self.update_joke()
+    def get_weather(self, city = '北京', date = 'today') -> list:
+        if self.weather.get(city) == None:
+            self.weather[city] = {}
+            self.update_weather(city = city)
+        return self.weather[city][date]
 
-    def get_weather(self, date = 'today', city = '北京') -> str:
-        if self.weather[date].get(city) == None:
-            self.weather[date][city] = ''
-            self.update_weather(date, city)
-        return self.weather[date][city]
-
-    def update_weather(self, date = 'today', city = '北京') -> None:
-        self.weather[date][city] = ''
-        while self.weather[date][city] == '':
-            self.weather[date][city] = grab_weather(date, city)
+    def update_weather(self, city = '北京') -> None:
+        self.weather[city] = {}
+        while self.weather[city] == {}:
+            self.weather[city] = grab_weather(city = city)
 
     def get_joke(self) -> str:
         return self.joke
@@ -27,5 +38,6 @@ class Information_Getter:
         
 if __name__ == "__main__":
     info_getter = Information_Getter()
-    print(info_getter.get_weather(date = 'tomorrow', city = '芜湖'))
+    info_getter.update_weather(city = '芜湖')
+    print(info_getter.get_weather(city = '芜湖', date = 'today'))
 
