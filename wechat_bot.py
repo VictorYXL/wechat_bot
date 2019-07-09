@@ -31,12 +31,13 @@ class Wechat_Bot:
         raise 'No group ' + friend_name + ' found.'
     
     def send_message(self, message: str) -> None:
-        if self.friend == None:
-            raise 'No send object'
-        self.friend.send('机器人小亮: ' + message)
+        self.friend.send('[机器人小亮] ' + message)
         send_message_log(self.friend_name, message)
-    
+
+    def send_image(self, image_path: str) -> None:
+        self.friend.send_image(image_path)
+        send_image_log(self.friend_name, image_path)
 
 if __name__ == '__main__':
     wxbot = Wechat_Bot('file_helper')
-    wxbot.send_message('你好')
+    wxbot.send_image('src\\landscape\\13.jpg')

@@ -17,7 +17,13 @@ class Scheduler:
         self.sched.add_job(func = agent.send_joke, trigger = 'cron', hour = '10, 12, 14, 16, 18')
     
     def add_update_joke_job(self) -> None:
-        self.sched.add_job(func = self.info_getter.update_joke, trigger = 'cron', hour = '10, 12, 14, 16, 18', minute = '20')
+        self.sched.add_job(func = self.info_getter.update_joke, trigger = 'cron', hour = '10, 12, 14, 16, 18', minute = '5')
+    
+    def add_send_image_job(self, agent: Agent) -> None:
+        self.sched.add_job(func = agent.send_image, trigger = 'cron', hour = '9, 11, 13, 15, 17')
+
+    def add_update_image_job(self) -> None:
+        self.sched.add_job(func = self.info_getter.update_image, trigger = 'cron', hour = '9, 11, 13, 15, 17', minute = '5')
     
     def start(self) -> None:
         self.sched.start()

@@ -10,10 +10,18 @@ def main():
     scheduler = Scheduler(info_getter)
 
     # Add task
+    # Wife
     scheduler.add_send_weather_job(agent_wife)
+    #scheduler.add_send_joke_job(agent_wife)
+    #scheduler.add_send_image_job(agent_wife)
+
+    # Family
     scheduler.add_send_weather_job(agent_family)
-    scheduler.add_send_joke_job(agent_wife)
+    scheduler.add_send_image_job(agent_family)
+    
+    # Common task
     scheduler.add_update_joke_job()
+    scheduler.add_update_image_job()
 
     # Run
     scheduler.start()
@@ -24,9 +32,11 @@ def test():
     scheduler = Scheduler(info_getter)
     scheduler.add_send_joke_job(agent_test)
     scheduler.add_send_weather_job(agent_test)
+    scheduler.add_send_image_job(agent_test)
     scheduler.start()
 
 
 if __name__ == '__main__':
-    main()
+    #main()
+    test()
 

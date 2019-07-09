@@ -17,11 +17,12 @@ class Information_Getter:
         # }
     weather = {}
     joke = ''
-    def get_weather(self, city = '北京', date = 'today') -> list:
+    landscape_index = 0
+    def get_weather(self, city = '北京') -> list:
         if self.weather.get(city) == None:
             self.weather[city] = {}
             self.update_weather(city = city)
-        return self.weather[city][date]
+        return self.weather[city]
 
     def update_weather(self, city = '北京') -> None:
         self.weather[city] = {}
@@ -35,9 +36,15 @@ class Information_Getter:
         self.joke = ''
         while self.joke == '':
             self.joke = grab_joke()
+    
+    def get_image(self) -> str:
+        return 'src\\landscape\\' + str(self.landscape_index) + '.jpg'
+
+    def update_image(self) -> None:
+        self.landscape_index += 1
         
 if __name__ == "__main__":
     info_getter = Information_Getter()
     info_getter.update_weather(city = '芜湖')
-    print(info_getter.get_weather(city = '芜湖', date = 'today'))
+    print(info_getter.get_weather(city = '芜湖')['today'])
 

@@ -13,6 +13,13 @@ def send_message_log(friend_name: str, message: str) -> None:
     log_file.close()
     return None
 
+def send_image_log(friend_name: str, image_path: str) -> None:
+    log_file = open('log/' + get_date() + '.txt', 'a+')
+    log_file.write(get_time() + ' send image to ' + friend_name + ':\n    ')
+    log_file.write('image path: ' + image_path + '\n')
+    log_file.close()
+    return None
+
 def grab_weather_log(city: str, website: str, weather_tip_dict: dict) -> None:
     log_file = open('log/' + get_date() + '.txt', 'a+')
     log_file.write(get_time() + 'grab ' + city + ' weather from ' + website + ':\n    ')
