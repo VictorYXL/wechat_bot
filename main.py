@@ -12,12 +12,14 @@ def main():
     # Add task
     # Wife
     scheduler.add_send_weather_job(agent_wife)
+    scheduler.add_send_easy_word_job(agent_wife)
     #scheduler.add_send_joke_job(agent_wife)
     #scheduler.add_send_image_job(agent_wife)
 
     # Family
     scheduler.add_send_weather_job(agent_family)
     scheduler.add_send_image_job(agent_family)
+    scheduler.add_send_easy_word_job(agent_family)
     
     # Common task
     scheduler.add_update_joke_job()
@@ -33,10 +35,11 @@ def test():
     scheduler.add_send_joke_job(agent_test)
     scheduler.add_send_weather_job(agent_test)
     scheduler.add_send_image_job(agent_test)
+    scheduler.add_send_easy_word_job(agent_test)
     scheduler.start()
 
 
 if __name__ == '__main__':
-    #main()
-    test()
+    main()
+    #test()
 

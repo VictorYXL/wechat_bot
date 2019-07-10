@@ -27,7 +27,7 @@ def grab_weather(city: str) -> dict:
     weather_dict_today = response_dict['data']['forecast'][0]
     weather_dict_tomorrow = response_dict['data']['forecast'][1]
 
-    today_str = city + '今天' + analyze_weather(weather_dict_tomorrow)
+    today_str = city + '今天' + analyze_weather(weather_dict_today)
     tomorrow_str = city + '明天' + analyze_weather(weather_dict_tomorrow)
     weather_tip = response_dict['data']['ganmao']
 

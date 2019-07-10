@@ -6,6 +6,7 @@ class Agent:
     info_getter = None
     friend_bot = None
     friend_city = None
+    easy_word_index = 0
     def __init__(self, friend_name: str, friend_city: str, info_getter: Information_Getter):
         self.friend_bot = Wechat_Bot(friend_name)
         self.info_getter = info_getter
@@ -33,11 +34,24 @@ class Agent:
         image_path = self.info_getter.get_image()
         self.friend_bot.send_message('工作之余，看个风景吧')
         self.friend_bot.send_image(image_path)
+    
+    def send_easy_word_subject(self) -> None:
+        self.friend_bot.send_message('今天要学英语哦')
+        self.friend_bot.send_message('今天学习的主题是' + self.info_getter.get_easy_word_subject())
+        self.easy_word_index = 0
+
+    def send_easy_word(self) -> None:
+        word_dict = self.info_getter.get_easy_word(self.easy_word_index)
+        self.friend_bot.send_message('请跟我学: ' + word_dict['chi'] + ', ' + word_dict['eng'])
+        self.friend_bot.send_image(word_dict['image'])
+        self.friend_bot.send_voice(word_dict['voice'])
+        self.easy_word_index += 1
+
+
 
 if __name__ == "__main__":
     info_getter = Information_Getter()
     agent = Agent(friend_name = 'file_helper', friend_city = '北京', info_getter = info_getter)
-    agent.send_weather(date = 'today')
-    agent.send_image()
+    agent.send_easy_word()
     
     

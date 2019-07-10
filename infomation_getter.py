@@ -18,6 +18,7 @@ class Information_Getter:
     weather = {}
     joke = ''
     landscape_index = 0
+    easy_word_subject_index = 0
     def get_weather(self, city = '北京') -> list:
         if self.weather.get(city) == None:
             self.weather[city] = {}
@@ -42,9 +43,37 @@ class Information_Getter:
 
     def update_image(self) -> None:
         self.landscape_index += 1
+
+    def get_easy_word_subject(self) -> str:
+        subject_file = 'src\\easy_word\\' + str(self.easy_word_subject_index) + '\\subject.txt'
+        file = open(subject_file, 'r', encoding = 'utf8')
+        subject_name = file.read()
+        file.close()
+        return subject_name
+
+    def get_easy_word(self, word_index) -> dict:
+        word_dir = 'src\\easy_word\\' + str(self.easy_word_subject_index) + '\\' + str(word_index) + '\\'
+        word_file = word_dir + 'word.txt'
+        file = open(word_file, 'r', encoding = 'utf8')
+        eng_word = file.readline()
+        chi_word = file.readline()
+        image_path = word_dir + 'image.jpg'
+        voice_path = word_dir + 'voice.mp3'
+        file.close()
+        word_dict = {'eng': eng_word, 'chi': chi_word, 'image': image_path, 'voice': voice_path}
+        return word_dict
+    
+    def update_easy_word_index(self) -> None:
+        self.easy_word_subject_index += 1
+
+
+        
+        #self.easy_word_subject_index
+
+    
+
         
 if __name__ == "__main__":
     info_getter = Information_Getter()
-    info_getter.update_weather(city = '芜湖')
-    print(info_getter.get_weather(city = '芜湖')['today'])
+    info_getter.get_easy_word(1)
 

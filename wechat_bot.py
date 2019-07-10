@@ -37,7 +37,11 @@ class Wechat_Bot:
     def send_image(self, image_path: str) -> None:
         self.friend.send_image(image_path)
         send_image_log(self.friend_name, image_path)
+    
+    def send_voice(self, voice_path: str) -> None:
+        self.friend.send_file(voice_path)
+        send_voice_log(self.friend_name, voice_path)
 
 if __name__ == '__main__':
     wxbot = Wechat_Bot('file_helper')
-    wxbot.send_image('src\\landscape\\13.jpg')
+    wxbot.send_voice('src\\easy_english\\1\\1\\voice.mp3')
